@@ -1,33 +1,36 @@
 # bmw-cic-carplay
 
-Laidinis Apple CarPlay BMW **CIC HIGH** iDrive sistemai (tikslinis automobilis: E61 LCI 2009, CIC High + Combox).
-Idėja: CarPlay USB adapteris (Carlinkit tipo) atlieka Apple dalį ir per USB atiduoda H.264 vaizdą ir garsą,
-o CIC viduje veikiantis įskiepis vaizdą dekoduoja CIC DSP (TI DM642) ir rodo ekrane, valdymas per iDrive.
+Wired Apple CarPlay for the BMW **CIC HIGH** iDrive head unit (first target car: E61 LCI 2009, CIC High + Combox).
 
-Statusas: **1 etapas, CIC versijos nustatymas.** Plačiau: [docs/PLAN.md](docs/PLAN.md).
+Idea: a CarPlay USB dongle (Carlinkit-style) handles the Apple side and delivers H.264 video and audio over USB.
+A plugin running inside the CIC decodes the video on the CIC's own DSP (TI DM642), shows it on screen,
+and maps the iDrive controller to CarPlay input. No LVDS box, no screen disassembly.
 
-## Struktūra
+Status: **Stage 1, identifying the CIC software version.** Details: [docs/PLAN.md](docs/PLAN.md).
 
-| Kelias | Kas tai |
+## Layout
+
+| Path | What |
 |---|---|
-| `diag/copie_scr.plain.sh` | Diagnostinis skriptas (tik skaitymas): CIC info + flash kopija į USB atmintuką |
-| `tools/cic_script.py` | CIC `copie_scr.sh` kodavimas/dekodavimas ir USB paruošimas |
-| `docs/PLAN.md` | Tyrimo santrauka, rizikos ir etapų planas |
+| `diag/copie_scr.plain.sh` | Read-only diagnostic boot script: CIC info + flash copy to the USB stick |
+| `tools/cic_script.py` | Encode/decode the CIC `copie_scr.sh` boot script and stage a USB stick |
+| `docs/PLAN.md` | Research summary, architecture, stages and risks |
 
-## Diagnostinio USB paruošimas
+## Making the diagnostic USB stick
 
 ```
 python tools/cic_script.py stage diag/copie_scr.plain.sh out/usb
 ```
 
-`out/usb/copie_scr.sh` nukopijuok į FAT32 atmintuko šaknį, įjunk degimą, įkišk atmintuką ir perkrauk CIC
-(laikyk radijo įjungimo/garso rankenėlę ~25–30 s). Po ~5 min atmintuke bus `CICDIAG/` su `INFO.TXT`, `fs0.img`, `DONE.TXT`.
+Copy `out/usb/copie_scr.sh` to the root of a FAT32 stick, switch the ignition on, plug the stick in and reboot the CIC
+(hold the radio power/volume knob for ~25–30 s). The CIC only runs the script while booting.
+After ~5 minutes the stick has `CICDIAG/` with `INFO.TXT`, `fs0.img` and `DONE.TXT`.
 
-**`fs0.img` ir kitų automobilio iškeltinių failų į repozitoriją nekelk** (`.gitignore` juos blokuoja).
+**Never commit `fs0.img` or any other file copied from a car** (`.gitignore` blocks them). They contain BMW software.
 
-## Licencija ir prisidėjimas
+## License and contributing
 
-Licencija: [PolyForm Noncommercial 1.0.0](LICENSE.md). Prisidėti kviečiame, žr. [CONTRIBUTING.md](CONTRIBUTING.md).
+License: [PolyForm Noncommercial 1.0.0](LICENSE.md). Contributions welcome, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Remiamės viešai aprašytu [bmw-cic-androidauto](https://github.com/josemalm32/bmw-cic-androidauto) projektu
-(PolyForm Noncommercial 1.0.0). Jo kodą naudoti galima tik nekomerciškai; šis projektas asmeniniam naudojimui.
+This project builds on the publicly documented [bmw-cic-androidauto](https://github.com/josemalm32/bmw-cic-androidauto)
+project (also PolyForm Noncommercial 1.0.0). Not affiliated with BMW or Apple. Use at your own risk.

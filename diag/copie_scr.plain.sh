@@ -1,5 +1,5 @@
 #!/bin/ksh
-# CIC diagnostika (tik skaitymas). Nieko nerašo į CIC, rašo tik į USB atmintuką.
+# CIC diagnostics (read-only). Writes nothing to the CIC; output goes to the USB stick only.
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/opt/bin:/mnt/EFS_RO/opt/bin:/mnt/EFS_RO/bin:/proc/boot
 export PATH
 USB=/fs/usb0
@@ -27,7 +27,7 @@ s pidin arg
 s usb -v
 s df -k
 /bin/sync 2>/dev/null; sync 2>/dev/null
-# Raw flash kopija (TIK SKAITYMAS iš /dev/fs0), reikalinga HmiMain versijai nustatyti
+# Raw flash copy (READ-ONLY from /dev/fs0), needed to identify the HmiMain build
 echo; echo "===== fs0 copy start"; date
 ls -l /dev/fs0*
 cp /dev/fs0 "$OUT/fs0.img" && echo FS0_OK || echo FS0_FAIL
