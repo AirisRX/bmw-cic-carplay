@@ -1,0 +1,9 @@
+# Car dumps and private material: never commit
+out/
+CICDIAG/
+*.img
+*.bin
+certs/
+*.key
+*.pem
+__pycache__/
