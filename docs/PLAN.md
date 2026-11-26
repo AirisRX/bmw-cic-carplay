@@ -17,6 +17,26 @@ Updated 2026-11-26.
   audio to a USB host over a simple protocol, documented by open projects (node-carplay, pi-carplay). The dongle has
   its own Wi-Fi, so wireless CarPlay may also work.
 
+## Delivery options (tried in this order)
+
+The goal is the least hardware possible. Each option is tried only if the one before it proves impossible.
+
+1. **Software only, phone cable.** Software installed once from a USB stick; afterwards the iPhone is plugged into
+   the car's USB with a normal cable and CarPlay runs. Blockers to check:
+   - **USB role switch:** in wired CarPlay the iPhone becomes the USB host, so the CIC port must work in device (OTG)
+     mode. The diagnostic stick (v2) lists the USB controller and driver options.
+   - **Apple MFi authentication:** the iPhone asks the car to sign a challenge with an Apple auth coprocessor.
+     The diagnostic stick looks for any iPod/iAP/auth support on the CIC. The Combox's iPod chip sits in a separate
+     ECU and is probably an older, non-CarPlay version.
+   - **Protocol:** CarPlay video/audio is AirPlay-based with Apple encryption; no open receiver exists.
+   Expected: very unlikely, but we confirm with data before dropping it.
+2. **Software runs from a USB stick that stays in the glovebox port**, phone on a cable (armrest port, if it is a
+   separate CIC/Combox port). Same blockers as option 1, but nothing is written to the CIC flash.
+3. **Software installed once + CarPlay dongle** (Carlinkit CPC200-style) in a USB port. The dongle supplies MFi auth
+   and the CarPlay protocol; the iPhone connects to it wirelessly. Most likely to work.
+4. **Software on a stick + dongle**, both in the glovebox (through a USB hub). Fallback if installing to flash is
+   not possible on a given CIC build.
+
 ## Architecture
 
 ```
@@ -31,7 +51,8 @@ Replaced: the Android Auto protocol (AOA + TLS) with the CarPlay dongle protocol
 
 ## Stages
 
-1. **Identify the CIC version** (now). The diagnostic stick (`diag/`) reads system info and a copy of `/dev/fs0`.
+1. **Identify the CIC version and check option 1** (now). The diagnostic stick (`diag/`, v2) reads system info,
+   USB controller and Apple-auth probes, and a copy of `/dev/fs0`.
    HmiMain is extracted from it and compared with the known profiles (likely the E60 LCI build).
 2. **Toolchain.** QNX Momentics 6.3.x (SH4, `ntosh-gcc-3.3.5`) on a Windows PC. QNX has retired it; it needs a
    myQNX account or an archived copy. This is the hardest part to obtain.
