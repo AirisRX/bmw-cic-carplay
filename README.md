@@ -25,7 +25,9 @@ python tools/cic_script.py stage diag/copie_scr.plain.sh out/usb
 
 **`fs0.img` ir kitų automobilio iškeltinių failų į repozitoriją nekelk** (`.gitignore` juos blokuoja).
 
-## Pastaba dėl licencijų
+## Licencija ir prisidėjimas
+
+Licencija: [PolyForm Noncommercial 1.0.0](LICENSE.md). Prisidėti kviečiame, žr. [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Remiamės viešai aprašytu [bmw-cic-androidauto](https://github.com/josemalm32/bmw-cic-androidauto) projektu
 (PolyForm Noncommercial 1.0.0). Jo kodą naudoti galima tik nekomerciškai; šis projektas asmeniniam naudojimui.
