@@ -12,6 +12,12 @@ Thanks for helping!
 5. By contributing you agree that your contribution is licensed under [LICENSE.md](LICENSE.md)
    (PolyForm Noncommercial 1.0.0).
 
+## Testers with their own car
+
+Owners of a CIC HIGH car are as valuable as developers, ideally with a Combox (Bluetooth audio and calls must
+keep working next to CarPlay). Start with the read-only diagnostic stick (see README) and open a
+[Car report](../../issues/new?template=car-report.yml) issue.
+
 ## Where to start
 
 See [docs/PLAN.md](docs/PLAN.md). Most wanted: HmiMain profiles for other CIC builds, the CarPlay dongle protocol

@@ -28,6 +28,21 @@ After ~5 minutes the stick has `CICDIAG/` with `INFO.TXT`, `fs0.img` and `DONE.T
 
 **Never commit `fs0.img` or any other file copied from a car** (`.gitignore` blocks them). They contain BMW software.
 
+## Help wanted: CIC owners
+
+We are looking for people with a **BMW CIC HIGH** head unit to test and contribute, especially cars that
+also have a **Combox**, so that Bluetooth audio and phone calls keep working alongside CarPlay.
+
+Every car helps, because each CIC software build needs its own profile. To join:
+
+1. Run the read-only diagnostic stick above (it changes nothing on the CIC).
+2. Open a **[Car report](../../issues/new?template=car-report.yml)** issue with your car, CIC/Combox details and the
+   contents of `INFO.TXT`. **Do not upload `fs0.img`**: it contains BMW software. We will ask for specific values from it.
+3. Code, reverse-engineering notes and testing are all welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Useful to have: a CarPlay USB dongle (Carlinkit CPC200-style), an iPhone, and for developers a Windows PC
+with the QNX Momentics 6.3.x SH4 toolchain.
+
 ## License and contributing
 
 License: [PolyForm Noncommercial 1.0.0](LICENSE.md). Contributions welcome, see [CONTRIBUTING.md](CONTRIBUTING.md).
