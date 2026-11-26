@@ -1,0 +1,64 @@
+name: Car report
+description: Report your car and CIC details so we can support your CIC software build
+title: "[Car] <model> <year> - CIC <build>"
+labels: ["car-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping! Run the read-only diagnostic stick first (see README).
+        **Do not attach `fs0.img` or any other file copied from the car** — it contains BMW software.
+  - type: input
+    id: car
+    attributes:
+      label: Car
+      description: Model, body code and year
+      placeholder: "E61 LCI 2009"
+    validations:
+      required: true
+  - type: dropdown
+    id: headunit
+    attributes:
+      label: Head unit
+      options:
+        - CIC HIGH (8.8" wide screen)
+        - CIC MID / other (not supported yet)
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: combox
+    attributes:
+      label: Combox
+      options:
+        - "Yes (Bluetooth audio available)"
+        - "No"
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: CIC software version / HmiMain build (if known)
+      placeholder: "e.g. CIC_L6_1107_Release B1107-501-1121A Build 11"
+  - type: textarea
+    id: info
+    attributes:
+      label: INFO.TXT
+      description: Paste the contents of CICDIAG/INFO.TXT from the diagnostic stick
+      render: text
+  - type: dropdown
+    id: role
+    attributes:
+      label: How can you help?
+      multiple: true
+      options:
+        - Test builds in my car
+        - Development (C / QNX / reverse engineering)
+        - I have a CarPlay USB dongle
+        - I have the QNX 6.3.x toolchain
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Retrofits, coding changes, anything unusual
